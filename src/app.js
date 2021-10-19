@@ -16,6 +16,11 @@ const pathToPublicDirectory = path.join(__dirname, '../public')
 // app.com/about  --> /about when addressed
 // get() takes in two objects: request and response
 
+app.set('view engine', 'hbs')
+// app.set() is a method that provides settings for Express. Here,
+// it loads hbs, which is kind of a handlebars plugin for Express.
+// It integrates the handlebars module into the Express package.
+
 // To make our web server use the path to the public directory:
 app.use(express.static(pathToPublicDirectory))
 // This loads the content of the entire public folder into the root page!
@@ -40,7 +45,32 @@ app.get('/about', (req, res) => {
     res.send('About us')
 })
 */
+app.get('', (req, res) => {
+    // This makes Express load the index.hbs view:
+    res.render('index', {
+        title: 'Weather App',
+        name: 'Roboto'
+    })
+    // First arg is the name of the view file (index.hbs), the second 
+    // is an object we pass in. The object props can be accessed via 
+    // handlebars syntax from the index.hbs file.
+})
 
+app.get('/about', (req, res) => {
+    // This makes Express load the about.hbs view:
+    res.render('about', {
+        title: 'About Me',
+        name: 'Roboto'
+    })
+})
+
+app.get('/help', (req, res) => {
+    // This makes Express load the about.hbs view:
+    res.render('help', {
+        title: 'Help Page',
+        msg: 'If you need help, you got it!'
+    })
+})
 
 app.get('/weather', (req, res) => {
     res.send({
