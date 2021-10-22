@@ -1,5 +1,6 @@
 const path = require('path') // Path is a Nodejs core module.
 const express = require('express')
+const hbs = require('hbs') // Needed for the use of handlebars partials
 const app = express()
 
 console.log(__dirname)
@@ -9,6 +10,10 @@ console.log(__filename) // values provided by Nodejs on the console.
 console.log(path.join(__dirname, '../public'))
 // To use this path:
 const pathToPublicDirectory = path.join(__dirname, '../public')
+// Path for Handlebars file location (for Express):
+const viewsPath = path.join(__dirname, '../templates/views')
+// We only need this if the files are in a folder other than 'views'.
+const partialsPath = path.join(__dirname, '../templates/partials')
 
 // One domain with 3 routes:
 // app.com    -- root route --> '' when adressed
@@ -16,11 +21,16 @@ const pathToPublicDirectory = path.join(__dirname, '../public')
 // app.com/about  --> /about when addressed
 // get() takes in two objects: request and response
 
+// Set up handlebars engine and views location:
 app.set('view engine', 'hbs')
 // app.set() is a method that provides settings for Express. Here,
 // it loads hbs, which is kind of a handlebars plugin for Express.
 // It integrates the handlebars module into the Express package.
-
+app.set('views', viewsPath)
+// Tells express not to look in the views dir for handlebars files, but 
+// in the ../templates/views dir, according to the definition of viewsPath
+hbs.registerPartials(partialsPath)
+// Static directory to serve:
 // To make our web server use the path to the public directory:
 app.use(express.static(pathToPublicDirectory))
 // This loads the content of the entire public folder into the root page!
@@ -68,7 +78,8 @@ app.get('/help', (req, res) => {
     // This makes Express load the about.hbs view:
     res.render('help', {
         title: 'Help Page',
-        msg: 'If you need help, you got it!'
+        msg: 'If you need help, you got it!',
+        name: 'Roboto'
     })
 })
 
