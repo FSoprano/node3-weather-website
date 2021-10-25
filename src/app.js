@@ -89,6 +89,23 @@ app.get('/weather', (req, res) => {
         forecast: '18 degrees Celsius. Rainy.'
     })
 })
+// /help/* is the route for unmatched help routes. (404 message).
+app.get('/help/*', (req, res) => {
+    res.render('404page', {
+        title: '404',
+        name: 'Roboto',
+        nopage: 'Help article not found!'
+    })
+})
+// * is the route for everything that did not have a match so far in the 
+// other routes (404 message). It's also the reason why it needs to come last.
+app.get('*', (req, res) => {
+    res.render('404page', {
+        title: '404',
+        name: 'Roboto',
+        nopage: 'Page not found!'
+    })
+})
 // Starting the server on port 3000. 2nd arg is a callback function
 app.listen(3000, () => {
     console.log('Server is up on port 3000.')
