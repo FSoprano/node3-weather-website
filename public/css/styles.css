@@ -1,7 +1,39 @@
-h1 {
-    color: gray;
+body {
+    color: #333333;
+    font-family: 'Arial';
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* vh = viewport height: height of the browser window. 
+    Here: 100 percent of the viewport height is the minimum height of the body. */
 }
-img {
-    width: 400px;
-    height: 500px;
+footer {
+    color: #888888;
+    border-top: 1px solid #eeeeee;
+    margin-top: 16px;
+    padding: 16px 0;
+}
+header {
+    margin-top: 16px;
+    margin-bottom: 48px;
+}
+header a {
+    color: #aaa888;
+    margin-right: 16px;
+    text-decoration: none;
+}
+h1 {
+    font-size: 64px;
+    margin-bottom: 16px;
+}
+
+.portrait {
+    width: 250px;
+}
+.main-content {
+    flex-grow: 1; /* Tells flexbox that the div element in the body should take up 
+    (grow up to the size of) all of the leftover space, thereby 
+    pushing the footer to the bottom. */
 }

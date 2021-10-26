@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Weather</title>
+        <link rel="icon" href="/img/weather.png">
         <link rel="stylesheet" href="/css/styles.css">
         <!-- An absolute path starts with a forward slash for 
             the root directory. This is the root folder of the web server, 
@@ -14,7 +16,10 @@
     <body>
         <!-- The title prop of the object we passed into res.render() in 
         src/app.js -->
+        <div class="main-content">
         {{>header}}
+        <p>Use this site to get your weather.</p>
+        </div>
         {{>footer}}
     </body>
 </html>

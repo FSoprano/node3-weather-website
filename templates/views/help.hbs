@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <title>Help</title>
+        <link rel="icon" href="/img/weather.png">
+        <!-- Placement of icon link does matter! Put under the 
+        stylesheet link, it did not work! -->
         <link rel="stylesheet" href="/css/styles.css">
+       
     </head>
     <body>
+        <div class="main-content">
         {{>header}} <!-- Paritial from header.hbs loaded here -->
         <p>{{msg}}</p>
+        </div>
         {{>footer}}
     </body>
 </html>
