@@ -1,6 +1,8 @@
 const path = require('path') // Path is a Nodejs core module.
 const express = require('express')
 const hbs = require('hbs') // Needed for the use of handlebars partials
+const geocode = require('./utils/geocode')
+const forecast = require('./utils/forecast')
 const app = express()
 
 console.log(__dirname)
@@ -84,9 +86,57 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
+    if (!req.query.address) {
+        // return: see error explanation below.
+        return res.send({
+            error: 'You must provide an address.'
+        })
+    }
+    geocode(req.query.address, (error, { latitude, longitude, location } = {}) => {
+        if (error) {
+            // return stops the function execution
+            return res.send({
+                error // shorthand for error: error
+            })
+        }
+        
+        forecast( latitude, longitude , (error, forecastData) => {
+            if (error) {
+                return res.send({
+                    error // shorthand for error: error
+                })
+            }
+            res.send({
+                Location: location,
+                Forecast: forecastData,
+                Address: req.query.address
+            })
+        })
+    })
+})
+
+
+app.get('/products', (req, res) => {
+
+    if (!req.query.search) {
+        // return: see error explanation below.
+        return res.send({
+            error: 'You must provide a search term.'
+        })
+    }
+
+    // Error "Cannot set headers after they are sent to the client"
+    // means: A response was sent twice, although only one time is 
+    // allowed. To prevent this: use return inside the if statement, 
+    // that the code execution stops after the condition is met.
+
+    // URL search and other information is part of the request object.
+    // .query is part of the request object.
+    // The command will print the query string ('games') from the Browser URL in the 
+    // address field to the console:
+    console.log(req.query.search);
     res.send({
-        location: 'Bommelheim, Germany',
-        forecast: '18 degrees Celsius. Rainy.'
+        products: [],
     })
 })
 // /help/* is the route for unmatched help routes. (404 message).
