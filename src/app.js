@@ -107,9 +107,9 @@ app.get('/weather', (req, res) => {
                 })
             }
             res.send({
-                Location: location,
-                Forecast: forecastData,
-                Address: req.query.address
+                location,   // Shorthand again
+                forecast: forecastData,
+                address: req.query.address
             })
         })
     })
