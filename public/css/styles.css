@@ -37,3 +37,18 @@ h1 {
     (grow up to the size of) all of the leftover space, thereby 
     pushing the footer to the bottom. */
 }
+input {
+    border: 1px solid #cccccc;
+    padding: 8px;
+}
+button {
+    cursor: pointer;
+    /* cursor: pointer changes the appearance of the pointer when 
+    you move the pointer over the button. It changes to something 
+    that indicates that the button is something clickable. */
+    border: 1px solid #888888;
+    background: #888888;
+    color: white;
+    padding: 8px;
+}
+

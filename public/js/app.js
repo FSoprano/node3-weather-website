@@ -18,13 +18,48 @@ fetch('http://puzzle.mead.io/puzzle').then((response) => {
 // the then() method.
 
 // Challenge lesson 57:
-fetch('http://localhost:3000/weather?address=Boston').then((response) => {
+// fetch('http://localhost:3000/weather?address=Boston').then((response) => {
+//     response.json().then((data) => {
+//         if (data.error) {
+//             console.log(data.error)
+//         } else {
+//             console.log(data.location)
+//             console.log(data.forecast)
+//         }
+//     })
+// })
+const weatherForm = document.querySelector('form')
+const searchTerm = document.querySelector('input')
+// if we target by element name, document.querySelector picks the 
+// first element of that type on the page. This won't work with 
+// the message paragraphs. We therefore have to target by ID, 
+// which requires the #-sign in front of the ID.
+const messageOne = document.querySelector('#message-1')
+const messageTwo = document.querySelector('#message-2')
+
+weatherForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+    // console.log('testing!')
+    // Clicking the Search button makes testing! pop up for just 
+    // a fraction of a second. That's because the browser reloads
+    // the entire page after the event, so the message is cleared.
+    // This made sense in the past, but not nowadays.
+    // Workaround: provide named argment 'event' or 'e', 
+    // then set e.preventDefault() (as mentioned in React course).
+    const location = searchTerm.value
+    // searchTerm.value extracts the value of the input element.
+    console.log(location)
+    messageOne.textContent='Loading ...'
+    // Just in case there is some content from a previous run:
+    messageTwo.textContent = ''
+    fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
     response.json().then((data) => {
         if (data.error) {
-            console.log(data.error)
+            messageOne.textContent=data.error
         } else {
-            console.log(data.location)
-            console.log(data.forecast)
+            messageOne.textContent=data.location
+            messageTwo.textContent=data.forecast
         }
     })
+  })
 })
