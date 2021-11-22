@@ -52,7 +52,11 @@ weatherForm.addEventListener('submit', (e) => {
     messageOne.textContent='Loading ...'
     // Just in case there is some content from a previous run:
     messageTwo.textContent = ''
-    fetch(`http://localhost:3000/weather?address=${location}`).then((response) => {
+    fetch(`/weather?address=${location}`).then((response) => {
+        // Removed the domain from the fetch call, as it is going 
+        // to be different if the app is either run on localhost or
+        // on Heroku. The principle is the same as in the Handlebars 
+        // partial header.hbs.
     response.json().then((data) => {
         if (data.error) {
             messageOne.textContent=data.error

@@ -4,6 +4,11 @@ const hbs = require('hbs') // Needed for the use of handlebars partials
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
 const app = express()
+const port = process.env.PORT || 3000
+// The port change is necessary because the app uses a different 
+// port when deployed on Heroku. What Heroku provides will be stored
+// in process.env.PORT. Alternatively, port 3000 will be used if 
+// the first option does not work (localhost run).
 
 console.log(__dirname)
 console.log(__filename) // values provided by Nodejs on the console.
@@ -157,6 +162,6 @@ app.get('*', (req, res) => {
     })
 })
 // Starting the server on port 3000. 2nd arg is a callback function
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
+app.listen(port, () => {
+    console.log(`Server is up on port ${port}.`)
 })
