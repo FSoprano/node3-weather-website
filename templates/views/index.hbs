@@ -23,7 +23,13 @@
         <div class="main-content">
         {{>header}}
         <p>Use this site to get your weather.</p>
+        <p>Click <b>Get Weather</b> to show the weather at your current location, or type in the location you're
+            looking for and click <b>Search</b>.
+        </p>
         <form>
+            <p>The weather at your current location:</p>
+            <button id="get-location">Get Weather</button>
+            <p>The weather elsewhere on the earth:</p>
             <input placeholder="location">
             <button>Search</button>
         </form>

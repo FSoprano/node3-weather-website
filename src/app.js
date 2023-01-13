@@ -120,6 +120,25 @@ app.get('/weather', (req, res) => {
     })
 })
 
+app.get('/location', (req, res) => {
+    
+    const coords = req.query.coords.split(',')
+    const latitude = coords[0]
+    const longitude = coords[1]
+        
+    forecast( latitude, longitude , (error, forecastData) => {
+        if (error) {
+            return res.send({
+                error // shorthand for error: error
+            })
+        }
+        res.send({
+            forecast: forecastData,
+            })
+            
+        })
+})
+
 
 app.get('/products', (req, res) => {
 

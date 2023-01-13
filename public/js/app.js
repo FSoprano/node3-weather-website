@@ -7,11 +7,11 @@ console.log("Client-side Javascript file loaded!")
 // cannot use it in a backend-Javascript file. It only works 
 // in client-side Javascript files.
 
-fetch('http://puzzle.mead.io/puzzle').then((response) => {
-    response.json().then((data) => {
-        console.log(data)
-    })
-})
+// fetch('http://puzzle.mead.io/puzzle').then((response) => {
+//     response.json().then((data) => {
+//         console.log(data)
+//     })
+// })
 // This kicks off an asynchronous I/O operation.
 // This means we don't have access to the data right away.
 // Note the different syntax: the callback function is an argument of
@@ -36,6 +36,7 @@ const searchTerm = document.querySelector('input')
 // which requires the #-sign in front of the ID.
 const messageOne = document.querySelector('#message-1')
 const messageTwo = document.querySelector('#message-2')
+const locationButton = document.querySelector('#get-location')
 
 weatherForm.addEventListener('submit', (e) => {
     e.preventDefault()
@@ -66,4 +67,29 @@ weatherForm.addEventListener('submit', (e) => {
         }
     })
   })
+})
+locationButton.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+        return alert('Your browser does not support geolocation!')
+    }
+    locationButton.setAttribute('disabled', 'disabled')
+    navigator.geolocation.getCurrentPosition((position) => {
+      
+        const pos = { latitude: position.coords.latitude, longitude: position.coords.longitude }
+        locationButton.removeAttribute('disabled')
+        console.log('Location fetched.')
+        console.log(position)
+
+        fetch(`/location?coords=${pos.latitude},${pos.longitude}`).then((response) => {
+        response.json().then((data) => {
+            if (data.error) {
+                messageOne.textContent=data.error
+            } else {
+                messageOne.textContent=data.location
+                messageTwo.textContent=data.forecast
+            }
+        })
+      })
+    })
+    
 })

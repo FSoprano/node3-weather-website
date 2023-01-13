@@ -21,11 +21,11 @@ const forecast = (latitude, longitude, callback) => {
         // No longer required because json:true, that means we do not have to parse it.
             const description = body.current.weather_descriptions[0]
             const { temperature, feelslike, humidity } = body.current
+            const { name, country } = body.location
             callback(undefined, `${description}. It is currently ${temperature} degrees out. 
             It feels like ${feelslike} degrees. The humidity is ${humidity} percent.`)
         }
     })
 }
-
 module.exports = forecast
 
