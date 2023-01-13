@@ -3,6 +3,7 @@ const express = require('express')
 const hbs = require('hbs') // Needed for the use of handlebars partials
 const geocode = require('./utils/geocode')
 const forecast = require('./utils/forecast')
+const forecastLoc = require('./utils/forecastLoc')
 const app = express()
 const port = process.env.PORT || 3000
 // The port change is necessary because the app uses a different 
@@ -105,7 +106,7 @@ app.get('/weather', (req, res) => {
             })
         }
         
-        forecast( latitude, longitude , (error, forecastData) => {
+        forecast( latitude, longitude , (error, forecastData ) => {
             if (error) {
                 return res.send({
                     error // shorthand for error: error
@@ -126,16 +127,14 @@ app.get('/location', (req, res) => {
     const latitude = coords[0]
     const longitude = coords[1]
         
-    forecast( latitude, longitude , (error, forecastData) => {
+    forecastLoc( latitude, longitude , (error, { location, forecastData }) => {
         if (error) {
             return res.send({
                 error // shorthand for error: error
             })
         }
-        res.send({
-            forecast: forecastData,
-            })
-            
+        res.send({location, 
+            forecast: forecastData})
         })
 })
 
