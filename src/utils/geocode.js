@@ -1,6 +1,7 @@
 const request = require('request');
 const geocode = (address, callback) => {
-    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + '.json?access_token=pk.eyJ1IjoiZnNvcHJhbm8iLCJhIjoiY2t1OGgwcHkzNDUzNTMwcDhzb3R5eG56NCJ9.P4C5--3q_sQ9to_JuaFbEQ&limit=1'
+    const apikey=process.env.MAPBOX_API_KEY
+    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + encodeURIComponent(address) + `.json?access_token=${apikey}&limit=1`
     // encodeURIComponent gets special characters right if they are part of the request term.
     request({ url, json:true }, (error, { body } = {}) => {
         if (error) {

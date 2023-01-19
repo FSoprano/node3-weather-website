@@ -3,7 +3,9 @@ const request = require('request')
 
 const forecast = (latitude, longitude, callback) => {
 
-    const url = 'http://api.weatherstack.com/current?access_key=50ba5fb92ec4311678b0d4f7b9dde78e&query=' + encodeURIComponent(latitude) + ',' + encodeURIComponent(longitude)
+    const apikey = process.env.WEATHERSTACK_API_KEY
+
+    const url = `http://api.weatherstack.com/current?access_key=${apikey}&query=` + encodeURIComponent(latitude) + ',' + encodeURIComponent(longitude)
     // One could add something like "+ '&units=f'" to get the temperature values in Fahrenheit.
     request( { url, json: true }, (error, { body }) => {
         // error, like request, is an object with that name. It will not be available
